@@ -4,7 +4,6 @@ export default createGlobalStyle`
     * {
         margin: 0;
         padding: 0;
-        outline: 0;
         box-sizing: border-box;
     }
 
@@ -21,6 +20,9 @@ export default createGlobalStyle`
 
         --success: #3fe864;
         --negative: #e83f5b;
+
+        --white: #ffffff;
+        --black: #000000;
     }
 
     body {

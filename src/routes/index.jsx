@@ -4,7 +4,7 @@ import Login from "../pages/Login";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/login">
+      <Route exact path="/login">
         <Login />
       </Route>
     </Switch>
