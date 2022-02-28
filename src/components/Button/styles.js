@@ -11,6 +11,15 @@ export const Container = styled.button`
     margin: 20px 0px;
     transition: 0.5s;
 
+    :disabled {
+        background: ${props => props.greySchema ? "#343B41" : "#59323F"};
+
+        :hover {
+            background: ${props => props.greySchema ? "#343B41" : "#59323F"};
+            cursor: inherit;
+        }
+    }
+
     :hover {
         background: ${props => props.greySchema ? "#343B41" : "#FF699F"};
     }
