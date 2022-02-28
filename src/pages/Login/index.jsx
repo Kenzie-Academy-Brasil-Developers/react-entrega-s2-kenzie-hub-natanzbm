@@ -1,7 +1,12 @@
-import Button from "../../components/Button";
+import { useHistory } from "react-router-dom";
 import { Box, Container } from "./styles";
+import Button from "../../components/Button";
 
 const Login = () => {
+  const history = useHistory();
+
+  const handleNavigation = (path) => history.push(path);
+
   return (
     <Container>
       <h2>Kenzie Hub</h2>
@@ -10,16 +15,18 @@ const Login = () => {
         <form>
           <label>
             Email
-            <input type="text" placeholder="Insira seu email" />
+            <input type="email" placeholder="Insira seu email" />
           </label>
           <label>
             Senha
             <input type="password" placeholder="Insira sua senha" />
           </label>
         </form>
-        <Button>Entrar</Button>
+        <Button onClick={() => handleNavigation("/home")}>Entrar</Button>
         <span>Ainda não possui uma conta?</span>
-        <Button greySchema>Cadastre-se</Button>
+        <Button onClick={() => handleNavigation("/signup")} greySchema>
+          Cadastre-se
+        </Button>
       </Box>
     </Container>
   );
