@@ -6,6 +6,7 @@ import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
+import api from "../../services/api";
 import * as yup from "yup";
 
 const Login = () => {
@@ -48,7 +49,14 @@ const Login = () => {
 
   const onSubmitForm = (data) => {
     delete data.passwordConfirm;
-    console.log(data);
+
+    data.bio = " ";
+    data.contact = " ";
+
+    api
+      .post("/users", data)
+      .then((response) => console.log(response.data))
+      .catch((err) => console.log(err));
   };
 
   const handleNavigation = (path) => history.push(path);
