@@ -6,7 +6,7 @@ const Select = ({ label, register, name, error, value, ...rest }) => {
       <div>
         {label} {!!error && <span> - {error}</span>}
       </div>
-      <SelectContainer>
+      <SelectContainer isErrored={!!error}>
         <select defaultValue={value} {...register(name)} {...rest} />
       </SelectContainer>
     </Container>

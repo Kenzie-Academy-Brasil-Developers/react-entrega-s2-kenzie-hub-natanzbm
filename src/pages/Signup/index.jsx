@@ -29,7 +29,7 @@ const Login = () => {
       .string()
       .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Campo obrigatório!"),
-    module: yup
+    course_module: yup
       .string()
       .oneOf(
         ["module1", "module2", "module3", "module4", "module5", "module6"],
@@ -46,7 +46,10 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitForm = (data) => console.log(data);
+  const onSubmitForm = (data) => {
+    delete data.passwordConfirm;
+    console.log(data);
+  };
 
   const handleNavigation = (path) => history.push(path);
 
@@ -94,9 +97,9 @@ const Login = () => {
             value={value}
             onChange={handleChange}
             label="Selecionar módulo"
-            name="module"
+            name="course_module"
             register={register}
-            error={errors.module?.message}
+            error={errors.course_module?.message}
           >
             <option value="default" disabled hidden>
               Selecione seu módulo
