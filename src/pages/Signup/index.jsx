@@ -1,11 +1,52 @@
 import { useHistory } from "react-router-dom";
 import { Box, Container, ContainerHeader } from "./styles";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
+import * as yup from "yup";
 
 const Login = () => {
   const history = useHistory();
+
+  const [value, setValue] = useState("default");
+
+  const handleChange = (e) => setValue(e.target.value);
+
+  const schema = yup.object().shape({
+    name: yup.string().required("Campo obrigatório!"),
+    email: yup.string().email("Email inválido").required("Campo obrigatório!"),
+    password: yup
+      .string()
+      .matches(
+        "^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
+        "A senha deve conter, no mínimo, 8 caracteres, incluindo letra, número e caractere especial"
+      )
+      .required("Campo obrigatório!"),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password")], "Senhas diferentes")
+      .required("Campo obrigatório!"),
+    module: yup
+      .string()
+      .oneOf(
+        ["module1", "module2", "module3", "module4", "module5", "module6"],
+        "Campo obrigatório!"
+      )
+      .required(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmitForm = (data) => console.log(data);
 
   const handleNavigation = (path) => history.push(path);
 
@@ -18,31 +59,57 @@ const Login = () => {
       <Box>
         <h4>Crie sua conta</h4>
         <span>Rápido e grátis, vamos nessa</span>
-        <form>
-          <Input label="Nome" placeholder="Digite aqui seu nome" />
-          <Input label="Email" placeholder="Digite aqui seu email" />
+        <form onSubmit={handleSubmit(onSubmitForm)}>
+          <Input
+            label="Nome"
+            name="name"
+            register={register}
+            error={errors.name?.message}
+            placeholder="Digite aqui seu nome"
+          />
+          <Input
+            label="Email"
+            name="email"
+            register={register}
+            error={errors.email?.message}
+            placeholder="Digite aqui seu email"
+          />
           <Input
             label="Senha"
+            name="password"
+            register={register}
+            error={errors.password?.message}
             type="password"
             placeholder="Digite aqui sua senha"
           />
           <Input
             label="Confirmar Senha"
+            name="passwordConfirm"
+            register={register}
+            error={errors.passwordConfirm?.message}
             type="password"
             placeholder="Digite novamente sua senha"
           />
-          <Select label="Selecionar módulo">
-            <option value="select1" selected>
-              Primeiro Módulo
+          <Select
+            value={value}
+            onChange={handleChange}
+            label="Selecionar módulo"
+            name="module"
+            register={register}
+            error={errors.module?.message}
+          >
+            <option value="default" disabled hidden>
+              Selecione seu módulo
             </option>
-            <option value="select2">Segundo Módulo</option>
-            <option value="select3">Terceiro Módulo</option>
-            <option value="select4">Quarto Módulo</option>
-            <option value="select5">Quinto Módulo</option>
-            <option value="select6">Sexto Módulo</option>
+            <option value="module1">Primeiro Módulo</option>
+            <option value="module2">Segundo Módulo</option>
+            <option value="module3">Terceiro Módulo</option>
+            <option value="module4">Quarto Módulo</option>
+            <option value="module5">Quinto Módulo</option>
+            <option value="module6">Sexto Módulo</option>
           </Select>
+          <Button type="submit">Cadastrar</Button>
         </form>
-        <Button onClick={() => handleNavigation("/login")}>Cadastrar</Button>
       </Box>
     </Container>
   );

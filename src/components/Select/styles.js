@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
     text-align: left;
@@ -6,6 +6,11 @@ export const Container = styled.div`
     div {
         font-size: 0.8rem;
         margin: 15px 0px;
+
+        span {
+            color: var(--negative);
+        }
+        
     }
 `;
 
@@ -14,6 +19,10 @@ export const SelectContainer = styled.div`
     border: solid 1px var(--grey-2);
     border-radius: 3px;
     width: 100%;
+
+    ${props => props.isErrored && css`
+        border-color: var(--negative);
+    `}
 
     select {
         background: var(--grey-2);

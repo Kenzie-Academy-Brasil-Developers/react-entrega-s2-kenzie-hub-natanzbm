@@ -1,11 +1,13 @@
 import { Container, SelectContainer } from "./styles";
 
-const Select = ({ label, ...rest }) => {
+const Select = ({ label, register, name, error, value, ...rest }) => {
   return (
     <Container>
-      <div>{label}</div>
+      <div>
+        {label} {!!error && <span> - {error}</span>}
+      </div>
       <SelectContainer>
-        <select {...rest} />
+        <select defaultValue={value} {...register(name)} {...rest} />
       </SelectContainer>
     </Container>
   );
