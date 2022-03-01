@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { Box, Container } from "./styles";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 
 const Login = () => {
   const history = useHistory();
@@ -13,14 +14,8 @@ const Login = () => {
       <Box>
         <h4>Login</h4>
         <form>
-          <label>
-            Email
-            <input type="email" placeholder="Insira seu email" />
-          </label>
-          <label>
-            Senha
-            <input type="password" placeholder="Insira sua senha" />
-          </label>
+          <Input label="Email" />
+          <Input label="Senha" type="password" />
         </form>
         <Button onClick={() => handleNavigation("/home")}>Entrar</Button>
         <span>Ainda não possui uma conta?</span>
