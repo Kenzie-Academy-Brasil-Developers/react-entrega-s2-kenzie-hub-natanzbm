@@ -25,6 +25,12 @@ export const Box = styled.div`
     justify-content: center;
     max-width: 370px;
 
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     span {
         color: var(--grey-1);
         font-size: 0.7rem;

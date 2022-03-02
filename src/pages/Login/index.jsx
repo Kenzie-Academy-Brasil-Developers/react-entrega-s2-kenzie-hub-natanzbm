@@ -19,6 +19,7 @@ const Login = ({ auth, setAuth }) => {
   const {
     register,
     handleSubmit,
+    formState,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -65,7 +66,9 @@ const Login = ({ auth, setAuth }) => {
             register={register}
             error={errors.password?.message}
           />
-          <Button type="submit">Entrar</Button>
+          <Button type="submit" disabled={!formState.isDirty}>
+            Entrar
+          </Button>
           <span>Ainda não possui uma conta?</span>
           <Button
             type="button"
