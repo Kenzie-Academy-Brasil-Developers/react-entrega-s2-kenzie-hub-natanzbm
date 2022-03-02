@@ -3,13 +3,14 @@ import { Box, Container, ContainerHeader } from "./styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import api from "../../services/api";
 import * as yup from "yup";
 
-const Login = () => {
+const Signup = () => {
   const history = useHistory();
 
   const [value, setValue] = useState("default");
@@ -55,8 +56,11 @@ const Login = () => {
 
     api
       .post("/users", data)
-      .then((response) => console.log(response.data))
-      .catch((err) => console.log(err));
+      .then((_) => {
+        toast.success("Conta criada com sucesso!");
+        return history.push("/login");
+      })
+      .catch((err) => toast.error("Erro ao criar a conta, tente outro email!"));
   };
 
   const handleNavigation = (path) => history.push(path);
@@ -126,4 +130,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
