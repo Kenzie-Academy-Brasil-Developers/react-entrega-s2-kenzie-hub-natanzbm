@@ -1,19 +1,34 @@
-import { Switch, Route } from "react-router-dom";
-import Home from "../pages/Dashboard";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 
 const Routes = () => {
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("@KenzieHub:token"));
+
+    if (token) {
+      return setAuth(true);
+    }
+  }, [auth]);
+
   return (
     <Switch>
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
       <Route path="/login">
-        <Login />
+        <Login auth={auth} setAuth={setAuth} />
       </Route>
       <Route path="/signup">
-        <Signup />
+        <Signup auth={auth} />
       </Route>
-      <Route path="/home">
-        <Home />
+      <Route path="/dashboard">
+        <Dashboard auth={auth} />
       </Route>
     </Switch>
   );

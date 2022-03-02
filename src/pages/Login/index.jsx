@@ -1,17 +1,18 @@
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { Box, Container } from "./styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import api from "../../services/api";
 import * as yup from "yup";
 
-const Login = () => {
+const Login = ({ auth, setAuth }) => {
   const history = useHistory();
 
   const schema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório!"),
+    email: yup.string().email("Email inválido").required("Campo obrigatório!"),
     password: yup.string().required("Campo obrigatório!"),
   });
 
@@ -24,9 +25,26 @@ const Login = () => {
   });
 
   const onSubmitForm = (data) => {
-    console.log(data);
+    api
+      .post("./sessions", data)
+      .then((response) => {
+        const { token, user } = response.data;
+
+        localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
+        localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
+
+        setAuth(true);
+
+        return history.push("/dashboard");
+      })
+      .catch((_) => toast.error("Credenciais incorretas!"));
   };
+
   const handleNavigation = (path) => history.push(path);
+
+  if (auth) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>
@@ -36,9 +54,9 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <Input
             label="Email"
-            name="name"
+            name="email"
             register={register}
-            error={errors.name?.message}
+            error={errors.email?.message}
           />
           <Input
             label="Senha"

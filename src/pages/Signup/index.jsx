@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { Box, Container, ContainerHeader } from "./styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +10,7 @@ import Select from "../../components/Select";
 import api from "../../services/api";
 import * as yup from "yup";
 
-const Signup = () => {
+const Signup = ({ auth }) => {
   const history = useHistory();
 
   const [value, setValue] = useState("default");
@@ -60,10 +60,14 @@ const Signup = () => {
         toast.success("Conta criada com sucesso!");
         return history.push("/login");
       })
-      .catch((err) => toast.error("Erro ao criar a conta, tente outro email!"));
+      .catch((_) => toast.error("Erro ao criar a conta, tente outro email!"));
   };
 
   const handleNavigation = (path) => history.push(path);
+
+  if (auth) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>
