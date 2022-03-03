@@ -111,7 +111,7 @@ export const TechList = styled.div`
     width: 100%;
 
     div {
-        background: var(--grey-2);
+        background: var(--grey-3);
         border-radius: 4px;
         padding: 7px;
         margin: 0 20px;

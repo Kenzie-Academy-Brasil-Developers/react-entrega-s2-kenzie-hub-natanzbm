@@ -50,8 +50,7 @@ const Signup = ({ auth }) => {
   const {
     register,
     handleSubmit,
-    formState,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -135,7 +134,7 @@ const Signup = ({ auth }) => {
             <option value="Quinto Módulo">Quinto Módulo</option>
             <option value="Sexto Módulo">Sexto Módulo</option>
           </Select>
-          <Button disabled={!formState.isDirty} type="submit">
+          <Button disabled={!isDirty} type="submit">
             Cadastrar
           </Button>
         </form>

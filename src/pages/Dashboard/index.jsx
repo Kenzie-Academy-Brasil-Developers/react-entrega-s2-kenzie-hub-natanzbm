@@ -11,6 +11,7 @@ import Button from "../../components/Button";
 import ModalAdd from "../../components/ModalAdd";
 import Card from "../../components/Card";
 import api from "../../services/api";
+import ModalEdit from "../../components/ModalEdit";
 
 const Dashboard = ({ auth, setAuth }) => {
   const [data] = useState(
@@ -20,8 +21,9 @@ const Dashboard = ({ auth, setAuth }) => {
     JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
   );
   const [addModal, setAddModal] = useState(false);
-  // const [editModal, setEditModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [newTech, setNewTech] = useState([]);
+  const [editTech, setEditTech] = useState([]);
 
   useEffect(() => {
     api
@@ -46,6 +48,14 @@ const Dashboard = ({ auth, setAuth }) => {
 
   return (
     <Container>
+      {editModal && (
+        <ModalEdit
+          setEditModal={setEditModal}
+          editTech={editTech}
+          newTech={newTech}
+          setNewTech={setNewTech}
+        />
+      )}
       {addModal && (
         <ModalAdd
           setAddModal={setAddModal}
@@ -73,7 +83,11 @@ const Dashboard = ({ auth, setAuth }) => {
       </TechHeader>
       <TechList>
         <div>
-          <Card newTech={newTech} />
+          <Card
+            newTech={newTech}
+            setEditModal={setEditModal}
+            setEditTech={setEditTech}
+          />
         </div>
       </TechList>
     </Container>

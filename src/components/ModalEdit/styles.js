@@ -45,6 +45,16 @@ export const Content = styled.div`
     width: 100%;
     height: 100%;
 
+    div {
+        display: flex;
+
+        button + button{
+            width: 40%;
+            margin-left: 20px;
+        }
+
+    }
+
     span {
         font-size: 0.8rem;
         color: var(--negative);

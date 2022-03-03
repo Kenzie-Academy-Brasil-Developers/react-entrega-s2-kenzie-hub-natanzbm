@@ -1,33 +1,26 @@
 import { useState } from "react";
 import { Container, ContainerHeader, Content } from "./styles";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import Button from "../../components/Button";
 import api from "../../services/api";
-import * as yup from "yup";
 
-const ModalAdd = ({ setAddModal, newTech, setNewTech }) => {
+const ModalEdit = ({ setEditModal, editTech }) => {
   const [token] = useState(
     JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
   );
 
-  const schema = yup.object().shape({
-    title: yup.string().required("Campo obrigatório!"),
-  });
-
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
-  } = useForm({ resolver: yupResolver(schema) });
+    formState: { errors },
+  } = useForm();
 
-  const handleTech = ({ title, status }) => {
+  const handleEditTech = ({ status }) => {
     api
-      .post(
-        "/users/techs",
+      .put(
+        `/users/techs/${editTech.id}`,
         {
-          title: title,
           status: status,
         },
         {
@@ -36,35 +29,40 @@ const ModalAdd = ({ setAddModal, newTech, setNewTech }) => {
           },
         }
       )
-      .then((response) => {
-        setNewTech([...newTech, response.data]);
-        toast.success("Tecnologia cadastrada!");
-      })
-      .catch((_) => toast.error("Tecnologia já cadastrada!"));
+      .then((_) => toast.success("Tecnologia atualizada!"));
+    setEditModal(false);
+  };
 
-    setAddModal(false);
+  const handleDeleteTech = () => {
+    api
+      .delete(`/users/techs/${editTech.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((_) => toast.success("Tecnologia removida!"));
+    setEditModal(false);
   };
 
   return (
     <Container>
       <ContainerHeader>
-        <h2>Cadastrar Tecnologia</h2>
-        <button onClick={() => setAddModal(false)}>X</button>
+        <h2>Tecnologia Detalhes</h2>
+        <button onClick={() => setEditModal(false)}>X</button>
       </ContainerHeader>
       <Content>
-        <form onSubmit={handleSubmit(handleTech)}>
+        <form onSubmit={handleSubmit(handleEditTech)}>
           <label htmlFor="name">
-            Nome <span>{errors.title?.message}</span>
+            Nome do projeto<span>{errors.title?.message}</span>
             <input
-              type="text"
               name="title"
+              value={editTech.title}
               {...register("title")}
               id="name"
-              placeholder="Tecnologia"
             />
           </label>
           <label htmlFor="status">
-            Selecionar status
+            Status
             <select {...register("status")}>
               <option value="Iniciante" id="status">
                 Iniciante
@@ -73,13 +71,16 @@ const ModalAdd = ({ setAddModal, newTech, setNewTech }) => {
               <option value="Avançado">Avançado</option>
             </select>
           </label>
-          <Button type="submit" disabled={!isDirty}>
-            Cadastrar Tecnologia
-          </Button>
+          <div>
+            <Button type="submit">Salvar alterações</Button>
+            <Button type="button" onClick={handleDeleteTech} greySchema>
+              Excluir
+            </Button>
+          </div>
         </form>
       </Content>
     </Container>
   );
 };
 
-export default ModalAdd;
+export default ModalEdit;
