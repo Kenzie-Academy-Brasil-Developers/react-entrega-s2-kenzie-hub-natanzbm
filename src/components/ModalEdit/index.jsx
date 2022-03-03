@@ -56,9 +56,10 @@ const ModalEdit = ({ setEditModal, editTech }) => {
             Nome do projeto<span>{errors.title?.message}</span>
             <input
               name="title"
-              value={editTech.title}
+              value={editTech.title || ""}
               {...register("title")}
               id="name"
+              disabled
             />
           </label>
           <label htmlFor="status">

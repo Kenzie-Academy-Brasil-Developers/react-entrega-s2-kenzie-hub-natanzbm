@@ -23,9 +23,10 @@ const Dashboard = ({ auth, setAuth }) => {
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [newTech, setNewTech] = useState([]);
-  const [editTech, setEditTech] = useState([]);
+  const [editTech, setEditTech] = useState([] || "");
 
   useEffect(() => {
+    let isMounted = true;
     api
       .get(`/users/${data.id}`, {
         headers: {
@@ -33,8 +34,16 @@ const Dashboard = ({ auth, setAuth }) => {
         },
       })
       .then((response) => {
-        setNewTech(response.data.techs);
-      });
+        if (isMounted) {
+          const dataUser = response.data.techs;
+          setNewTech(dataUser);
+        }
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      isMounted = false;
+    };
   }, [newTech, data.id, token]);
 
   const handleLogout = () => {
