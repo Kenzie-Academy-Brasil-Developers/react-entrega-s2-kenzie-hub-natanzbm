@@ -19,6 +19,7 @@ const ModalAdd = ({ setAddModal, newTech, setNewTech }) => {
   const {
     register,
     handleSubmit,
+    formState,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -37,7 +38,7 @@ const ModalAdd = ({ setAddModal, newTech, setNewTech }) => {
         }
       )
       .then((response) => {
-        setNewTech([...newTech, response.userData]);
+        setNewTech([...newTech, response.data]);
         toast.success("Tecnologia cadastrada!");
       })
       .catch((_) => toast.error("Tecnologia já cadastrada!"));
@@ -73,7 +74,9 @@ const ModalAdd = ({ setAddModal, newTech, setNewTech }) => {
               <option value="Avançado">Avançado</option>
             </select>
           </label>
-          <Button type="submit">Cadastrar Tecnologia</Button>
+          <Button type="submit" disabled={!formState.isDirty}>
+            Cadastrar Tecnologia
+          </Button>
         </form>
       </Content>
     </Container>

@@ -5,11 +5,6 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    width: 100vw;
-
-    h2 {
-        color: var(--color-primary);
-    }
 
 `;
 
@@ -27,16 +22,21 @@ export const ContainerHeader = styled.div`
         width: 100%;
         max-width: 700px;
         justify-content: space-between;
-    }
 
-    button {
-        background-color: var(--grey-3);
-        height: 30px;
-        width: 60px;
-        font-size: 0.8rem;
+        h2 {
+            color: var(--color-primary);
+        }
 
-        :hover {
-            background-color: var(--grey-1);
+        button {
+            background-color: var(--grey-3);
+            height: 30px;
+            width: 60px;
+            font-size: 0.8rem;
+    
+            :hover {
+                background-color: var(--grey-1);
+            }
+    
         }
 
     }
@@ -48,7 +48,7 @@ export const ContainerUser = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 120px;
+    min-height: 120px;
     border-bottom: 1.5px solid var(--grey-2);
 
     div {
@@ -74,32 +74,53 @@ export const ContainerUser = styled.div`
 
 `;
 
-export const ContainerTechs = styled.div`
+export const TechHeader = styled.div`
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
 
-    header {
+    div {
         margin: 0 20px;
         display: flex;
         align-items: center;
         width: 100%;
         max-width: 700px;
         justify-content: space-between;
-    }
 
-    button {
-        background-color: var(--grey-3);
-        height: 30px;
-        width: 30px;
-        font-size: 1.5rem;
+        button {
+            background-color: var(--grey-3);
+            height: 30px;
+            width: 30px;
+            font-size: 1.5rem;
+    
+            :hover {
+                background-color: var(--grey-1);
+            }
 
-        :hover {
-            background-color: var(--grey-1);
         }
 
     }
-    
+
+`;
+
+export const TechList = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    div {
+        background: var(--grey-2);
+        border-radius: 4px;
+        padding: 7px;
+        margin: 0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 700px;
+    }
+
 `;

@@ -4,15 +4,17 @@ import {
   Container,
   ContainerHeader,
   ContainerUser,
-  ContainerTechs,
+  TechHeader,
+  TechList,
 } from "./styles";
 import Button from "../../components/Button";
 import ModalAdd from "../../components/ModalAdd";
+import Card from "../../components/Card";
 import api from "../../services/api";
 
 const Dashboard = ({ auth, setAuth }) => {
-  const [userData] = useState(
-    JSON.parse(localStorage.getItem("@KenzieHub:user")) || ""
+  const [data] = useState(
+    JSON.parse(localStorage.getItem("@KenzieHub:data")) || ""
   );
   const [token] = useState(
     JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
@@ -23,15 +25,15 @@ const Dashboard = ({ auth, setAuth }) => {
 
   useEffect(() => {
     api
-      .get(`/users/${userData.id}`, {
+      .get(`/users/${data.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setNewTech(response.userData.techs);
+        setNewTech(response.data.techs);
       });
-  }, [newTech, userData.id, token]);
+  }, [newTech, data.id, token]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -59,17 +61,21 @@ const Dashboard = ({ auth, setAuth }) => {
       </ContainerHeader>
       <ContainerUser>
         <div>
-          <p>Olá, {userData.name}</p>
-          <span>{userData.course_module}</span>
+          <p>Olá, {data.name}</p>
+          <span>{data.course_module}</span>
         </div>
       </ContainerUser>
-      <ContainerTechs>
-        <header>
+      <TechHeader>
+        <div>
           <h4>Tecnologias</h4>
           <Button onClick={() => setAddModal(true)}>+</Button>
-        </header>
-        <div>Teste</div>
-      </ContainerTechs>
+        </div>
+      </TechHeader>
+      <TechList>
+        <div>
+          <Card newTech={newTech} />
+        </div>
+      </TechList>
     </Container>
   );
 };

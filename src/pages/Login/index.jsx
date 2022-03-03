@@ -32,7 +32,7 @@ const Login = ({ auth, setAuth }) => {
         const { token, user } = response.data;
 
         localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
-        localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
+        localStorage.setItem("@KenzieHub:data", JSON.stringify(user));
 
         setAuth(true);
 
