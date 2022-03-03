@@ -6,6 +6,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     height: 100vh;
+    margin: 10px;
 
     h2 {
         color: var(--color-primary);
@@ -15,7 +16,6 @@ export const Container = styled.div`
 export const ContainerHeader = styled.div`
     display: flex;
     align-items: center;
-    margin: 0px 10px;
     min-width: 300px;
     max-width: 370px;
     justify-content: space-between;

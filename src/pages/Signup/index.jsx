@@ -34,7 +34,14 @@ const Signup = ({ auth }) => {
     course_module: yup
       .string()
       .oneOf(
-        ["module1", "module2", "module3", "module4", "module5", "module6"],
+        [
+          "Primeiro Módulo",
+          "Segundo Módulo",
+          "Terceiro Módulo",
+          "Quarto Módulo",
+          "Quinto Módulo",
+          "Sexto Módulo",
+        ],
         "Campo obrigatório!"
       )
       .required(),
@@ -121,12 +128,12 @@ const Signup = ({ auth }) => {
             <option value="default" disabled hidden>
               Selecione seu módulo
             </option>
-            <option value="module1">Primeiro Módulo</option>
-            <option value="module2">Segundo Módulo</option>
-            <option value="module3">Terceiro Módulo</option>
-            <option value="module4">Quarto Módulo</option>
-            <option value="module5">Quinto Módulo</option>
-            <option value="module6">Sexto Módulo</option>
+            <option value="Primeiro Módulo">Primeiro Módulo</option>
+            <option value="Segundo Módulo">Segundo Módulo</option>
+            <option value="Terceiro Módulo">Terceiro Módulo</option>
+            <option value="Quarto Módulo">Quarto Módulo</option>
+            <option value="Quinto Módulo">Quinto Módulo</option>
+            <option value="Sexto Módulo">Sexto Módulo</option>
           </Select>
           <Button disabled={!formState.isDirty} type="submit">
             Cadastrar
