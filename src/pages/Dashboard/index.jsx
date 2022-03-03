@@ -20,7 +20,7 @@ const Dashboard = ({ auth, setAuth }) => {
     JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
   );
   const [addModal, setAddModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
+  // const [editModal, setEditModal] = useState(false);
   const [newTech, setNewTech] = useState([]);
 
   useEffect(() => {

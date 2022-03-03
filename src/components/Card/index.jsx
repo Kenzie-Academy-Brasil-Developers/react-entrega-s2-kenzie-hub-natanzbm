@@ -13,7 +13,7 @@ const Card = ({ newTech }) => {
       );
     });
   } else {
-    return <h1>Aqui não tem porra nenhuma</h1>;
+    return <h3>Você não possui tecnologias cadastradas</h3>;
   }
 };
 
