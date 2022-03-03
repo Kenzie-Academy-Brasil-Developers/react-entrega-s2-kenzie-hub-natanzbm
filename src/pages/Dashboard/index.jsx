@@ -1,23 +1,42 @@
 import { Redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   Container,
   ContainerHeader,
   ContainerUser,
   ContainerTechs,
 } from "./styles";
-import { useHistory } from "react-router-dom";
 import Button from "../../components/Button";
+import ModalAdd from "../../components/ModalAdd";
+import api from "../../services/api";
 
 const Dashboard = ({ auth, setAuth }) => {
-  const history = useHistory();
+  const [userData] = useState(
+    JSON.parse(localStorage.getItem("@KenzieHub:user")) || ""
+  );
+  const [token] = useState(
+    JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
+  );
+  const [addModal, setAddModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [newTech, setNewTech] = useState([]);
+
+  useEffect(() => {
+    api
+      .get(`/users/${userData.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setNewTech(response.userData.techs);
+      });
+  }, [newTech, userData.id, token]);
 
   const handleLogout = () => {
     localStorage.clear();
     setAuth(false);
-    return history.push("/login");
   };
-
-  const userData = JSON.parse(localStorage.getItem("@KenzieHub:user"));
 
   if (!auth) {
     return <Redirect to="/login" />;
@@ -25,6 +44,13 @@ const Dashboard = ({ auth, setAuth }) => {
 
   return (
     <Container>
+      {addModal && (
+        <ModalAdd
+          setAddModal={setAddModal}
+          newTech={newTech}
+          setNewTech={setNewTech}
+        />
+      )}
       <ContainerHeader>
         <div>
           <h2>KenzieHub</h2>
@@ -38,10 +64,11 @@ const Dashboard = ({ auth, setAuth }) => {
         </div>
       </ContainerUser>
       <ContainerTechs>
-        <div>
+        <header>
           <h4>Tecnologias</h4>
-          <Button>+</Button>
-        </div>
+          <Button onClick={() => setAddModal(true)}>+</Button>
+        </header>
+        <div>Teste</div>
       </ContainerTechs>
     </Container>
   );

@@ -76,11 +76,12 @@ export const ContainerUser = styled.div`
 
 export const ContainerTechs = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
 
-    div {
+    header {
         margin: 0 20px;
         display: flex;
         align-items: center;

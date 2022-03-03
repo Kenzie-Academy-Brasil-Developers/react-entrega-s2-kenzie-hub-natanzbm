@@ -36,6 +36,8 @@ const Login = ({ auth, setAuth }) => {
 
         setAuth(true);
 
+        toast.success("Login efetuado com sucesso!");
+
         return history.push("/dashboard");
       })
       .catch((_) => toast.error("Credenciais incorretas!"));
