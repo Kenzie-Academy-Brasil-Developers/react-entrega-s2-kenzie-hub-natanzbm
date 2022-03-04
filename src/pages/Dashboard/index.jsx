@@ -35,11 +35,9 @@ const Dashboard = ({ auth, setAuth }) => {
       })
       .then((response) => {
         if (isMounted) {
-          const dataUser = response.data.techs;
-          setNewTech(dataUser);
+          setNewTech(response.data.techs);
         }
-      })
-      .catch((err) => console.log(err));
+      });
 
     return () => {
       isMounted = false;
