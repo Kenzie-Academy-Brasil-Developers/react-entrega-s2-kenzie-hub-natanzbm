@@ -8,6 +8,16 @@ export const Container = styled.div`
 
 `;
 
+export const ContainerModal = styled.div`
+    background-color:rgba(0, 0, 0, 0.7);
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+`;
+
 export const ContainerHeader = styled.div`
     display: flex;
     align-items: center;

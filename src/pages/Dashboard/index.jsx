@@ -2,6 +2,7 @@ import { Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Container,
+  ContainerModal,
   ContainerHeader,
   ContainerUser,
   TechHeader,
@@ -56,19 +57,27 @@ const Dashboard = ({ auth, setAuth }) => {
   return (
     <Container>
       {editModal && (
-        <ModalEdit
-          setEditModal={setEditModal}
-          editTech={editTech}
-          newTech={newTech}
-          setNewTech={setNewTech}
-        />
+        <>
+          <ContainerModal>
+            <ModalEdit
+              setEditModal={setEditModal}
+              editTech={editTech}
+              newTech={newTech}
+              setNewTech={setNewTech}
+            />
+          </ContainerModal>
+        </>
       )}
       {addModal && (
-        <ModalAdd
-          setAddModal={setAddModal}
-          newTech={newTech}
-          setNewTech={setNewTech}
-        />
+        <>
+          <ContainerModal>
+            <ModalAdd
+              setAddModal={setAddModal}
+              newTech={newTech}
+              setNewTech={setNewTech}
+            />
+          </ContainerModal>
+        </>
       )}
       <ContainerHeader>
         <div>
